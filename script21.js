@@ -1,4 +1,4 @@
-document.querySelector('.scroll-hint').addEventListener('click', function() {
+﻿document.querySelector('.scroll-hint').addEventListener('click', function() {
   const target = document.getElementById('section11');
   if (target) {
     target.scrollIntoView({ behavior: 'smooth' });
@@ -31,16 +31,13 @@ const unlockBtn = document.getElementById('unlockBtn');
 const musicToggleUnlock = document.getElementById('musicToggleUnlock');
 const langBtns = document.querySelectorAll('.lang-btn');
 
-
-// ========== РњРЈР—Р«РљРђР›Р¬РќР«Р™ РџР›Р•Р•Р  ==========
+// ========== MUZIKA ==========
 (function() {
-    // РЎРѕР·РґР°С‘Рј Р°СѓРґРёРѕ СЌР»РµРјРµРЅС‚
-    const bgMusic = new Audio('music_uz.mp3'); // РЈР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ С„Р°Р№Р» music.mp3 СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ С‚РѕР№ Р¶Рµ РїР°РїРєРµ
-    bgMusic.loop = true; // Р—Р°С†РёРєР»РёРІР°РµРј РјСѓР·С‹РєСѓ
-    bgMusic.volume = 0.5; // Р“СЂРѕРјРєРѕСЃС‚СЊ 50% (РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ)
-    
-    let isMusicPlaying = false; // Р¤Р»Р°Рі СЃРѕСЃС‚РѕСЏРЅРёСЏ РјСѓР·С‹РєРё
-    
+    const bgMusic = new Audio('music.mp3');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.5;
+    let isMusicPlaying = false;
+
     // РљРЅРѕРїРєР° РјСѓР·С‹РєРё РЅР° unlock-СЌРєСЂР°РЅРµ
     const musicToggleUnlock = document.getElementById('musicToggleUnlock');
     
@@ -1061,6 +1058,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
 
 
 
