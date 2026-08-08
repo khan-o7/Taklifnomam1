@@ -1,0 +1,40 @@
+    <!-- Qo'shimcha eslatma (ixtiyoriy) -->
+    <div class="details-footnote fade-in">
+        <div class="ornament-line"></div>
+        <p class="detcd14">Sizning tabassumingiz — bizning eng katta bezakimiz. Hurmat va mehr muhitini yaratishga qo‘shilgan hissangiz uchun oldindan rahmat.</p>
+    </div>
+</section>
+
+<section class="gallery-section fade-in">
+    <div class="divider fade-in">
+        <div class="dv-line"></div><div class="dv-gem"></div><div class="dv-line"></div>
+    </div>
+    <div class="fade-in">
+        <span class="tag galler1">RESTORAN MANZILI</span>
+        <h2 class="sec-title galler2">Restoran fotosuratlari</h2>
+    </div>
+
+    <div class="gallery-grid fade-in">
+        <!-- Tashqi ko'rinish -->
+        <div class="gallery-card exterior">
+            <div class="gallery-image">
+                <img src="a.png" 
+                     alt="Restoran tashqi ko'rinishi"
+                     onerror="this.src='https://placehold.co/800x600/f5f5f5/cccccc?text=Exterior+View'">
+                <div class="gallery-overlay">
+                    <span class="gallery-label galler3">Manzil</span>
+                    <div class="gallery-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-caption">
+                <h4 class="galler4">"Miss Madina Majmuasi" to'yxonasi</h4>
+                <p class="galler5">Namangan viloyati Pop tumani</p>
+            </div>
+        </div>
+    </div>
+</section>

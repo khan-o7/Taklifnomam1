@@ -1,0 +1,131 @@
+    // РўР°РєР¶Рµ РїСЂРѕР±СѓРµРј РІРєР»СЋС‡РёС‚СЊ РїСЂРё РїРµСЂРІРѕРј Р»СЋР±РѕРј РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРё (РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё unlockBtn РЅРµ СЃСЂР°Р±РѕС‚Р°Р»)
+    const anyInteraction = () => {
+        if (!isMusicPlaying) {
+            playMusic();
+        }
+        // РЈРґР°Р»СЏРµРј РѕР±СЂР°Р±РѕС‚С‡РёРєРё РїРѕСЃР»Рµ РїРµСЂРІРѕРіРѕ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
+        document.removeEventListener('click', anyInteraction);
+        document.removeEventListener('touchstart', anyInteraction);
+    };
+    
+    document.addEventListener('click', anyInteraction);
+    document.addEventListener('touchstart', anyInteraction);
+})();
+
+unlockBtn.addEventListener('click', () => {
+    unlockBtn.style.transform = "scale(0.92)";
+    setTimeout(() => { unlockBtn.style.transform = ""; }, 120);
+    unlockScreen.classList.add('opening');
+    unlockScreen.querySelector('.unlock-center').classList.add('unlock-opening');
+    
+    
+    setTimeout(() => {
+        unlockScreen.classList.add('hidden');
+        document.body.classList.remove('overflowH');
+        document.body.classList.add('loaded');
+        loadGuestsFromDB();
+    }, 1200);
+});
+
+// ========== Р¤РЈРќРљР¦Р˜Р˜ Р”Р›РЇ Р РђР‘РћРўР« РЎ Р‘РђР—РћР™ Р”РђРќРќР«РҐ ==========
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8JGu_19k-MLedkIle1k7O1X7cz5PrVZ7MP7tIHFLNKMERcpnrpxrutgX3Nml-m-tdjQ/exec';
+
+async function loadGuestsFromDB() {
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const result = await response.json();
+        
+        if (result.success && result.guests) {
+            renderGuestsTable(result.guests);
+            renderWishesList(result.guests);
+            updateStatsFromGuestsData(result.guests);
+        } else {
+            console.error('Failed to load guests:', result.error);
+            const tbody = document.getElementById('guestsTableBody');
+            if (tbody) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Hech qanday mehmon topilmadi</td></tr>';
+                resetStatsToZero();
+            }
+        }
+    } catch (error) {
+        console.error('Error loading guests:', error);
+        const tbody = document.getElementById('guestsTableBody');
+        if (tbody) {
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Ma\'lumotlarni yuklashda xatolik</td></tr>';
+            resetStatsToZero();
+        }
+    }
+}
+
+function renderWishesList(guests) {
+    const wishesList = document.getElementById('wishesList');
+    if (!wishesList) return;
+    if (!guests || guests.length === 0) {
+        wishesList.innerHTML = '<p style="color:#fff;text-align:center;">Hozircha tilaklar yo\'q</p>';
+        return;
+    }
+    
+    let html = '';
+    const wishes = guests.filter(g => g.comment && g.comment.trim() !== '');
+    if (wishes.length === 0) {
+        wishesList.innerHTML = '<p style="color:#fff;text-align:center;">Hozircha tilaklar yo\'q</p>';
+        return;
+    }
+    
+    wishes.forEach(guest => {
+        html += `
+            <div class="wish-msg">
+                <div class="wish-author">${escapeHtml(guest.name)}</div>
+                <div class="wish-text">${escapeHtml(guest.comment)}</div>
+            </div>
+        `;
+    });
+    
+    wishesList.innerHTML = html;
+}
+
+function renderGuestsTable(guests) {
+    const tbody = document.getElementById('guestsTableBody');
+    if (!tbody) return;
+    
+    if (!guests || guests.length === 0) {
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Hech qanday mehmon topilmadi</td></tr>';
+        return;
+    }
+    
+    let html = '';
+    
+    guests.forEach((guest, index) => {
+        let statusClass = '';
+        let statusText = '';
+        
+        switch(guest.status) {
+            case 'confirmed':
+                statusText = 'Tasdiqlangan';
+                statusClass = 'status-confirmed';
+                break;
+            case 'declined':
+                statusText = 'Kela olmaydi';
+                statusClass = 'status-declined';
+                break;
+            default:
+                statusText = 'Kutilmoqda';
+                statusClass = 'status-pending';
+        }
+        
+        const statusBadge = `<span class="status-badge ${statusClass}">${statusText}</span>`;
+        
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td><strong>${escapeHtml(guest.name)}</strong></td>
+                <td>${guest.guest_count}</td>
+                <td>${statusBadge}</td>
+                <td class="time-cell">${guest.time || '-'}</td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+}
