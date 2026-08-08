@@ -2712,3 +2712,54 @@ body.loaded .closing {
     background: rgba(217, 197, 167, 0.5);
     border-radius: 4px;
 }
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+.slider-track img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    color: #444;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+}
+.slider-arrow:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+.left-arrow {
+    left: 10px;
+    animation: bounceLeft 2s infinite;
+}
+.right-arrow {
+    right: 10px;
+    animation: bounceRight 2s infinite;
+}
+@keyframes bounceLeft {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(-50%) translateX(0); }
+    40% { transform: translateY(-50%) translateX(-5px); }
+    60% { transform: translateY(-50%) translateX(-3px); }
+}
+@keyframes bounceRight {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(-50%) translateX(0); }
+    40% { transform: translateY(-50%) translateX(5px); }
+    60% { transform: translateY(-50%) translateX(3px); }
+}

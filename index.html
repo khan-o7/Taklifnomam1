@@ -549,9 +549,13 @@
     <div class="divider">
         <div class="dv-line"></div><div class="dv-gem"></div><div class="dv-line"></div>
     </div>
-    <div class="couple-photo">
-        <img src="bg3.jpg" alt="  "
-             onerror="this.closest('.couple-photo').style.display='none'">
+    <div class="couple-photo" id="coupleSlider">
+        <div class="slider-track" id="sliderTrack">
+            <img src="bg3.jpg" alt="Photo 1" onerror="this.closest('.couple-photo').style.display='none'">
+            <img src="rasm.jpg" alt="Photo 2">
+        </div>
+        <button class="slider-arrow left-arrow" id="slidePrev">&#10094;</button>
+        <button class="slider-arrow right-arrow" id="slideNext">&#10095;</button>
         <div class="couple-cap">
             <p>Abdurahmon va Munavvarxon</p>
         </div>
@@ -731,6 +735,8 @@
 
 </body>
 </html>
+
+
 
 
 
